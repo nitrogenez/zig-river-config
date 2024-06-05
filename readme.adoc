@@ -1,0 +1,42 @@
+= zig-river-config
+Andrij Glyko <nitrogenez.dev@tuta.io>
+v0.3.0, 2024-06-06
+
+:toc:
+:homepage: https://github.com/nitrogenez/zig-river-config
+
+zig-river-config is a Zig library made for 
+https://github.com/riverwm/river[riverwm] configuration. It provides
+an API to define your configuration for the compositor while still having the 
+power of a low-level, robust, and fast programming language.
+
+== Examples
+
+For examples see link:src/default_config.zig[the default config].
+
+== Usage
+
+.build.zig
+[source,zig]
+----
+const zrc_dep = b.dependency("zig_river_config", .{ .optimize = optimize, .target = target });
+const zrc_mod = zrc_dep.module("zig-river-config");
+your_exe.root_module.addImport("zrc", zrc_mod);
+----
+
+.build.zig.zon 
+[source,zig]
+----
+.dependencies = .{
+    .zig_river_config = .{
+        .url = "git+https://github.com/nitrogenez/zig-river-config#COMMIT_HASH",
+        .hash = "HASH",
+    },
+},
+----
+
+...or use ```zig fetch --save "git+https://github.com/nitrogenez/zig-river-config#COMMIT_HASH"``` instead.
+
+== License
+This software is licensed under the 3-Clause BSD License.
+See link:LICENSE[LICENSE] for more info.

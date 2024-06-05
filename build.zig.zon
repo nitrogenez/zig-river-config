@@ -1,0 +1,9 @@
+.{
+    .name = "zig-river-config",
+    .version = "0.3.0",
+    .paths = .{
+        "src",
+        "build.zig",
+        "build.zig.zon",
+    },
+}
