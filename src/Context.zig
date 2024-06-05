@@ -82,12 +82,19 @@ pub fn dump(self: *Context) !void {
 
 pub fn apply(self: *Context) !void {
     var timer = try std.time.Timer.start();
+    const stdout = std.io.getStdOut().writer();
 
+    try stdout.writeAll("\x1B[0;36m 󰒓  Spawning autostart applications...\x1B[0m\n");
     try self.applyAutostart();
+
+    try stdout.writeAll("\x1B[0;36m 󰒓  Configuring key bindings...\x1B[0m\n");
     try self.applyMappings();
+
+    try stdout.writeAll("\x1B[0;36m 󰒓  Applying general properties...\x1B[0m\n");
     try self.applyProperties();
 
-    try self.notifyNormal("Configuration finished, took {d}ms", .{
+    try stdout.writeAll("\x1B[0;32m   Configuration complete\x1B[0m\n");
+    try self.notifyNormal("  Configuration complete ({d}ms)", .{
         @divExact(@as(f64, @floatFromInt(timer.lap())), @as(f64, @floatFromInt(std.time.ns_per_ms))),
     });
 }

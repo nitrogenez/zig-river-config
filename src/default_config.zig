@@ -105,7 +105,6 @@ pub fn main() !void {
     }
 
     try ctx.apply();
-    try ctx.dump();
 }
 
 fn appExists(comptime name: []const u8) bool {
