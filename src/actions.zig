@@ -54,7 +54,7 @@ pub const Action = union(enum) {
         current_tags: bool = false,
         arg: FocusOutputArg,
     },
-    spawn: @TypeOf(.enum_literal),
+    spawn: []const u8,
     swap: FocusDirection,
     @"toggle-float",
     @"toggle-fullscreen",
@@ -74,6 +74,7 @@ pub const Action = union(enum) {
     @"send-to-previous-tags",
     @"move-view",
     @"resize-view",
+    @"enter-mode": @TypeOf(.enum_literal),
 
     pub fn serialize(comptime self: Action) []const []const u8 {
         return switch (self) {
@@ -91,7 +92,7 @@ pub const Action = union(enum) {
             .@"focus-view" => |i| &.{ @tagName(self), if (i.skip_floating) "-skip-floating" else "", comptime i.arg.asSlice() },
             .@"default-layout",
             .@"output-layout",
-            .spawn,
+            .@"enter-mode",
             => |i| &.{ @tagName(self), @tagName(i) },
             .@"send-layout-cmd" => |i| &.{ @tagName(self), @tagName(i.namespace), @tagName(i.cmd) },
             .@"set-focused-tags",
@@ -102,8 +103,9 @@ pub const Action = union(enum) {
             => |i| &.{ @tagName(self), std.fmt.comptimePrint("{d}", .{i}) },
             .move => |i| &.{ @tagName(self), @tagName(i.direction), std.fmt.comptimePrint("{d}", .{i.delta}) },
             .resize => |i| &.{ @tagName(self), @tagName(i.orientation), std.fmt.comptimePrint("{d}", .{i.delta}) },
-            .snap => |i| &.{ @tagName(self), @tagName(i) },
             .@"send-to-output" => |i| &.{ @tagName(self), if (i.current_tags) "-current-tags" else "", comptime i.arg.asSlice() },
+            .spawn => |i| &.{ @tagName(self), i },
+            .snap => |i| &.{ @tagName(self), @tagName(i) },
             .swap => |i| &.{ @tagName(self), @tagName(i) },
         };
     }

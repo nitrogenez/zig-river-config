@@ -14,12 +14,12 @@ pub fn build(b: *std.Build) void {
     });
     b.installArtifact(lib);
 
-    const build_default_opt = b.option(bool, "default_config", "Build default config") orelse false;
+    const build_default_opt = b.option(bool, "init", "Build default config") orelse false;
 
     if (build_default_opt) {
         const default_config = b.addExecutable(.{
             .name = "init",
-            .root_source_file = b.path("src/default_config.zig"),
+            .root_source_file = b.path("src/init.zig"),
             .optimize = optimize,
             .target = target,
         });
