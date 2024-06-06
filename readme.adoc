@@ -6,36 +6,32 @@ v0.3.0, 2024-06-06
 :homepage: https://github.com/nitrogenez/zig-river-config
 
 zig-river-config is a Zig library made for 
-https://github.com/riverwm/river[riverwm] configuration. It provides
+https://github.com/riverwm/river[river] wayland compositor configuration. It provides
 an API to define your configuration for the compositor while still having the 
-power of a low-level, robust, and fast programming language.
+power of a low-level, robust, and fast programming language. The version of zig-river-config is the same as
+the version of https://github.com/riverwm/river[river]. zig-river-config has no 
+official affiliation with the https://github.com/riverwm[riverwm] organisation.
+
+== Warning
+
+Keep in mind, that when working with a low-level programming language like Zig you need to
+manage your resources manually. Any damage dealt to your machine is not my responsibility.
 
 == Examples
 
-For examples see link:src/default_config.zig[the default config].
+For examples see link:data/zig-river-config/init.zig[the default init].
 
 == Usage
+
+First of, run `zig fetch --save "git+https://github.com/nitrogenez/zig-river-config#COMMIT_HASH"`.
+After that you need to add something like that to your build.zig:
 
 .build.zig
 [source,zig]
 ----
 const zrc_dep = b.dependency("zig_river_config", .{ .optimize = optimize, .target = target });
-const zrc_mod = zrc_dep.module("zig-river-config");
-your_exe.root_module.addImport("zrc", zrc_mod);
+your_exe.root_module.addImport("zrc", zrc_dep.module("zig-river-config"));
 ----
-
-.build.zig.zon 
-[source,zig]
-----
-.dependencies = .{
-    .zig_river_config = .{
-        .url = "git+https://github.com/nitrogenez/zig-river-config#COMMIT_HASH",
-        .hash = "HASH",
-    },
-},
-----
-
-...or use ```zig fetch --save "git+https://github.com/nitrogenez/zig-river-config#COMMIT_HASH"``` instead.
 
 == License
 This software is licensed under the 3-Clause BSD License.

@@ -19,7 +19,7 @@ pub fn build(b: *std.Build) void {
     if (build_default_opt) {
         const default_config = b.addExecutable(.{
             .name = "init",
-            .root_source_file = b.path("src/init.zig"),
+            .root_source_file = b.path("data/zig-river-config/init.zig"),
             .optimize = optimize,
             .target = target,
         });
