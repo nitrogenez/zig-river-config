@@ -19,7 +19,7 @@ manage your resources manually. Any damage dealt to your machine is not my respo
 
 == Examples
 
-For examples see link:data/zig-river-config/init.zig[the default init].
+For examples see link:src/init.zig[the default init].
 
 == Usage
 
