@@ -72,6 +72,8 @@ pub const Action = union(enum) {
     @"spawn-tagmask": u32,
     @"focus-previous-tags",
     @"send-to-previous-tags",
+    @"move-view",
+    @"resize-view",
 
     pub fn serialize(comptime self: Action) []const []const u8 {
         return switch (self) {
@@ -82,6 +84,8 @@ pub const Action = union(enum) {
             .zoom,
             .@"focus-previous-tags",
             .@"send-to-previous-tags",
+            .@"move-view",
+            .@"resize-view",
             => &.{@tagName(self)},
             .@"focus-output" => |i| &.{ @tagName(self), comptime i.asSlice() },
             .@"focus-view" => |i| &.{ @tagName(self), if (i.skip_floating) "-skip-floating" else "", comptime i.arg.asSlice() },

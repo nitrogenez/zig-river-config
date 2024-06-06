@@ -59,6 +59,7 @@ pub fn main() !void {
     }
 
     try ctx.map(.normal, &.{.super}, .{ .normal = .space }, .@"toggle-float");
+    try ctx.map(.normal, &.{.super}, .{ .normal = .v }, .@"toggle-float");
     try ctx.map(.normal, &.{.super}, .{ .normal = .f }, .@"toggle-fullscreen");
 
     try ctx.map(
@@ -85,6 +86,10 @@ pub fn main() !void {
         .{ .normal = .left },
         .{ .@"send-layout-cmd" = .{ .namespace = .rivertile, .cmd = .@"main-location left" } },
     );
+
+    try ctx.map(.normal, &.{.super}, .{ .mouse = .left }, .@"move-view");
+    try ctx.map(.normal, &.{.super}, .{ .mouse = .right }, .@"resize-view");
+    try ctx.map(.normal, &.{.super}, .{ .mouse = .middle }, .@"toggle-float");
 
     inline for (.{ .normal, .locked }) |mode| {
         try ctx.map(mode, &.{.none}, .{ .custom = "XF86AudioRaiseVolume" }, .{ .spawn = .@"pactl set-sink-volume @DEFAULT_SINK@ +5%" });
